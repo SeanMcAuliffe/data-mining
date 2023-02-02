@@ -5,7 +5,7 @@ import numpy as np
 ## This is some dummy data just so you have a complete working example
 X = [[0, 0], [1, 1], [0, 0], [1, 1],[0, 0], [1, 1], [0, 0], [1, 1]]
 Y = [0, 1, 1, 0, 0, 1, 1, 0]
-M = 10 # number of trees in random forest
+M = 15 # number of trees in random forest
 rf = RandomForestClassifier(n_estimators = M, random_state = 0)
 rf = rf.fit(X, Y)
 n_samples = len(X)
@@ -20,6 +20,7 @@ n_samples_bootstrap = n_samples
 #      (this should be equal to n_samples)
 #    - rf is a random forest, obtained via a call to
 #      RandomForestClassifier(...) in scikit-learn
+
 unsampled_indices_for_all_trees= []
 for estimator in rf.estimators_:
     random_instance = check_random_state(estimator.random_state)
