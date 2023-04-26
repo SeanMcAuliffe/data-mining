@@ -18,26 +18,25 @@
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
 }
 
 \lstset{style=mystyle}
-
 
 \title{\textbf{SENG 474: Data Mining \\Assignment 3} \\[2ex]
 \large Clustering Experiments: 
@@ -56,7 +55,7 @@
 
 \section{Introduction}
 
-This report summarized the results obtained from applying two 
+This report summarises the results obtained from applying two 
 clustering algorithms, Lloyd's Algorithm and Agglomerative Clustering to two
 provided datasets. The first dataset contains 3500 points in 2 dimensions, and
 the second dataset contains 14801 points in 3 dimensions. The purpose of this
@@ -66,7 +65,7 @@ able to interpret their results, choose an appropriate number of clusters for
 a given problem and apply appropriate solutions for different situations.
 
 Clustering is an unsupervised learning technique with the goals of
-categorizing data into groups based on their similarity. In this way, labels 
+categorising data into groups based on their similarity. In this way, labels 
 can be learned from the data itself; without the need for pre-labelled data.
 Clustering is a useful technique in data mining which can be used to find 
 patterns in datasets, perhaps as a pre-processing step for further supervised
@@ -94,7 +93,7 @@ In order to build an intuition for the behaviour of the algorithms in later
 experiments, the provided data were plotted in 2 and 3 dimensions respectively.
 This is shown in Figure \ref{fig:provided_data}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \begin{subfigure}{0.3\textwidth}
       \centering
@@ -120,9 +119,9 @@ This is shown in Figure \ref{fig:provided_data}.
     \label{fig:provided_data}
 \end{figure}
 
-The first dataset seems like it ought to be seperable into roughly 2 clusters.
+The first dataset seems like it ought to be separable into roughly 2 clusters.
 The clusters seem to be globular, but clearly oblong. The second dataset
-seems to also be seperable into 2 clusters, however it is highly non-globular.
+seems to also be separable into 2 clusters, however it is highly non-globular.
 Rather, it is composed of two intertwined spirals having the appearance of a
 dessert.
 
@@ -247,7 +246,7 @@ algorithm was run 10 times, and the lowest cost clustering was chosen as the
 result. For each of the chosen clusterings, its cost and the number of iterations
 required to converge were recorded. The results are shown in \ref{fig:elbow_1}
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \begin{subfigure}{0.5\textwidth}
       \centering
@@ -277,20 +276,268 @@ significantly reduce the number of iterations required to converge. This is like
 due to the small size of the dataset, with so few points and clusters, the initialisation
 is very sensitive to the choice of initial means.
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\linewidth]{7.png}
-    \caption{Clustering produced by Lloyd's Algorithm w/ k = 4}
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{7.png}
+      \caption{k = 4}
+      \label{fig:7}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{x.png}
+      \caption{k = 2}
+      \label{fig:x}
+    \end{subfigure}%
+    \caption{Clustering produced by Lloyd's Algorithm on dataset 1}
     \label{fig:dist_1}
 \end{figure}
 
-\section{Hierachical Agglomerative Clustering}
+Shown above in \ref{fig:dist_1} is the clustering produced by Lloyd's Algorithm
+with the choice of \emph{k} = 4. The clustering shown above was produces with k-means++
+initialisation, the clustering produced with random initialisation is much the same.
+In contrast to later methods, this clustering produces sharp boundaries between
+adjacent clusters in the rightmost region (which seems like it ought to be a single cluster).
 
-\textbf{Hierarchical agglomerative clustering} is a connectivity-based
+To satisfy the bias that the 'proper' clustering should be k=2, the result of Lloyd's
+algorithm with k=2 is also shown. The Elbow method, as here performed, may have a flaw in the case that
+the optimal result has two clusters, since the plot starts at k = 2, it will
+not appear to be the bend in the elbow.
+
+\subsubsection{Lloyd's Algorithm on Dataset 2}
+
+The number of clusters was varied from [2, 10] and for each value of \emph{k} the
+algorithm was run 10 times, and the lowest cost clustering was chosen as the
+result. For each of the chosen clusterings, its cost and the number of iterations
+required to converge were recorded. The results are shown in \ref{fig:elbow_2}
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{8.png}
+      \caption{Random Initialisation}
+      \label{fig:8}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}{0.5\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{15.png}
+      \caption{K-Means++ Initialisation}
+      \label{fig:15}
+    \end{subfigure}%
+    \caption{The elbow method graph for dataset 2}
+    \label{fig:elbow_2}
+\end{figure}
+
+The clustering costs produced by Lloyd's algorithm with the two initialisation
+methods are again very similar at each value of k, in fact, many are identical. 
+Dataset 2 is highly non-globular, and we should expect Lloyd's algorithm not to 
+be able to 'correctly' produce a clustering for it. Indeed, both plots here seem
+to admit of no obvious elbow, in contrast to the previous section.
+
+The cost curve is smoothly decreasing in both plots, with the rate of decrease
+itself smoothly decreasing. Knowing that the data should be separable into
+2 clusters, one could argue that the elbow is at k = 2 or k = 3. However, the
+elbow method is not particularly useful here.
+
+In this case, k-means++ initialisation appears to perform slightly better,
+reducing the number of iterations required to converge at higher values of k (
+not the different scales of the two green y-axes), although it's not true at
+every point. The cost-reduction promised by k-means++ initialisation is not
+present in the results here, likely drowned out by the fact that each iteration
+was run 10 times to find the lowest cost clustering among all the runs.
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{9.png}
+    \label{fig:16}
+  \end{subfigure}%
+  \vspace{1em} % Add some space between the rows
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{12.png}
+    \label{fig:19}
+  \end{subfigure}%
+  \caption{Clusterings produced by Lloyd's Algorithm on dataset 2}
+  \label{fig:dist_2}
+\end{figure}
+
+The results are shown in Figure \ref{fig:dist_2} Clearly, neither of the two
+choices for \emph{k} produces the clustering we  would intuitively expect to be
+correct for this data. This is expected, as Lloyd's algorithm is not designed
+to produce a clustering for non-globular data.
+
+\section{Hierarchical Agglomerative Clustering}
+
+\textbf{Hierarchical agglomerative clustering (HAC)} is a bottom-up
+connectivity based
 algorithm in which clusters are defined by their member points (depending on the
-coonectivity, or linkage, metric used). The algorithm begins by assigning each
+connectivity, or linkage, metric used). The algorithm begins by assigning each
 point to its own cluster. Then, at each iteration, the two clusters with the
 smallest distance between them are merged together. This process is repeated 
-until the desired number of clusters is reached.
+until the desired number of clusters is reached. HAC can accomodate many different
+distance metrics. For this assignment, the Euclidean distance was used. Another
+parameter of HAC is the connectivity metric.
+
+\subsection{Connectivity Metrics} 
+
+Different connectivity metrics can be used to determine the definition of the
+distance between two clusters. This metric is used to make decisions about
+which clusters to merge next.
+
+\textit{Single Linkage} is the most straightforward metric. It measured the distance
+between two adjacent clusters as being to (Euclidean in our case) distance between
+the two nearest points in each cluster. This method is better at handing non-globular
+data.
+
+\begin{equation}
+  d_{SL}(C_i, C_j) = \min_{x_i \in C_i, x_j \in C_j} d(x_i, x_j)
+\end{equation}
+
+\textit{Average Linkage} is a more computationally intensive metric. It defines
+the distance between clusters as the average (Euclidean) pairwise distance between
+all of the points in each cluster.
+
+\begin{equation}
+  d_{AL}(C_i, C_j) = \frac{1}{|C_i| |C_j|} \sum_{x_i \in C_i} \sum_{x_j \in C_j} d(x_i, x_j)
+\end{equation}
+
+\subsection{Dendrograms} 
+
+Dendrograms are a useful tool for visualising the results of each 
+iterative merging decision made by HAC.
+A dendrogram is a tree-like diagram that shows the order in which the merges happen.
+It is organized according to the distance between two clusters at the point that
+they are selected as to be the next merge. If the tree is presented in the usual
+top-down way, then the leafs of the tree represent the original data points, and
+any horizontal cut through the diagram will produce a separation of the data
+into k clusters, where k is the number of vertical lines intersecting with the cut.
+This can be used as a heuristic visual aid, much like the Elbow method, to help
+determine what the optimal number of clusters is.
+
+\subsection{Experimental Results}
+
+\subsubsection{HAC on Dataset 1}
+
+Since dataset 1 is globular, we should expect HAC with average linkage to produce
+a good clustering. It is a question whether or not HAC with single linkage will
+work as well. The results of of using HAC to generate a dendrogram for dataset 1
+are shown below in \ref{fig:dend_1}, using both connectivity metrics.
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.6\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{a.png}
+    \caption{HAC, dataset 1, average linkage, cut at k = 2}
+    \label{fig:a}
+  \end{subfigure}%
+  \vspace{1em} % Add some space between the rows
+  \begin{subfigure}{0.6\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{b.png}
+    \caption{HAC, dataset 1, single linkage, cut at k = 3}
+    \label{fig:b}
+  \end{subfigure}%
+  \caption{Dendrogram on dataset 1 using average and single linkage HAC}
+  \label{fig:dend_1}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{21.png}
+    \caption{Average Linkage}
+    \label{fig:21}
+  \end{subfigure}%
+  \vspace{1em} % Add some space between the rows
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{f.png}
+    \caption{Single Linakge}
+    \label{fig:22}
+  \end{subfigure}%
+  \caption{Clusterings produced by HAC on dataset 1}
+  \label{fig:dist_3}
+\end{figure}
+
+The results show that HAC with average linkage produces a dendrogram that contains
+a very clear optimal clustering a k = 2. This is expected given a manual inspection
+of the data. One can tell that two clusters is optimal from the dendrogram because
+the vertical distance travelled before another merge is made is very large, relative
+to the merges depicted lower on the tree. This is a good indication that the
+clusters are well separated.
+
+HAC with single linkage produces a dendrogram that is not as clear. The optimal
+clustering is not obvious, however the largest vertical distance travelled between
+merges (ignoring the trivial cut which separates each point into its own cluster)
+is made at k = 3. Figure \ref{fig:dist_3} shows the clustering produces by each method,
+this indicates that HAC with single linkage is not well suited to this data. It
+seems to choose two of the outlier points to be their own trivial clusters, and groups
+all remaining points together.
+
+\subsubsection{HAC on Dataset 2}
+
+Dataset 2 is not globular, rather it is comprised of two interlocking spirals. 
+The intuitive clustering based on manual inspection contains 2 clusters. Therefore,
+we should want a connectivity method which clusters all points based on the membership
+of their nearest neighbouring point, and not an absolute distance to a clsuter centre.
+We should expect single linkage HAC to produce a desireable result in this case. 
+Average linkage should perform worse. The results of using HAC to generate dendrograms
+for both linkage methods are shown below in \ref{fig:dend_2}.
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}{0.6\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{c.png}
+    \caption{HAC, dataset 2, average linkage, cut at k = 7}
+    \label{fig:c}
+  \end{subfigure}%
+  \vspace{1em} % Add some space between the rows
+  \begin{subfigure}{0.6\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{d.png}
+    \caption{HAC, dataset 2, single linkage, cut at k = 2}
+    \label{fig:d}
+  \end{subfigure}%
+  \caption{Dendrogram on dataset 1 using average and single linkage HAC}
+  \label{fig:dend_2}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.75\linewidth]{fff.png}
+  \caption{Clusterings produced by HAC on dataset 2}
+  \label{fig:dist_4}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.75\linewidth]{ggg.png}
+  \caption{Clusterings produced by HAC on dataset 2}
+  \label{fig:dist_5}
+\end{figure}
+
+\textit{HAC w/ Single Linkage} produces a dendrogram which offers one obvious
+(non-trivial) cut at k = 2. This is the desired result, and is in line with the
+manual inspection of the data. Figure \ref{fig:dist_4} shows the clustering produced
+by HAC with single linkage. The clustering picks up on the spiral nature of the data,
+and the two clusters are clearly visible. 
+
+\textit{HAC w/ Average Linkage} produces a dendrogram which does not paint as 
+clear a picture of the optimal cut. Apart from the trivial cut in the lower part
+of the tree, there does appear to be a cut at k = 7. The height between merges
+appears to be ~2 units, which is as large a height as can be found in the tree. 
+The result of HAC with average linkage and k = 7 is shown in Figure \ref{fig:dist_5}.
+The clustering produced by HAC with average linkage is not as good as the one produced
+by HAC with single linkage. The clusters are not as well separated, and the clustering
+does not pick up on the spiral nature of the data.
 
 \end{document}
